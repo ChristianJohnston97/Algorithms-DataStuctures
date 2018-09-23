@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class BinarySearchTree
 {
@@ -16,7 +17,28 @@ public class BinarySearchTree
 		}
 	}
 
+
 	private Node root;
+
+	// function to find lowest common ancestor between nodes n1 and n2
+	public Node lowestCommonAncestor(Node node, int n1, int n2)
+	{
+		if(node == null)
+		{
+			return null;
+		}
+
+		if(node.data > n1 && node.data > n2)
+		{
+			return lowestCommonAncestor(node.left, n1, n2);
+		}
+
+		if(node.data < n1 && node.data < n2)
+		{
+			return lowestCommonAncestor(node.right, n1, n2);
+		}
+		return Node;
+	}		
 
 	public void insertNode(Node node, int value)
 	{
@@ -96,4 +118,41 @@ public class BinarySearchTree
         return minv;
 	}
 
+	// in order is left first
+	// pre order is node first then left then right
+	// post order is left then right then node
+	public void inOrderTreversal(Node root)
+	{
+		if(root != null)
+		{
+			inOrderTreversal(root.left);
+			System.out.println(root.data);
+			inOrderTreversal(root.right);
+		}
+	}
+
+
+	// level order = breadth first search (use a queue)
+	// LinkedList is best implementation of queue interface
+	// BFS is NOT iterative!
+
+	public void levelOrderTreversal(Node root)
+	{
+		LinkedList<Node> queue = new LinkedList<>();
+		queue.add(root);
+
+		while(!queue.isEmpty())
+		{
+			Node frontOfQueue = queue.remove();
+			System.out.println(frontOfQueue.data);
+			if(frontOfQueue.left != null)
+			{
+				queue.add(frontOfQueue.left);
+			}
+			if(frontOfQueue.right != null)
+			{
+				queue.add(frontOfQueue.right);
+			}
+		}
+	}
 }

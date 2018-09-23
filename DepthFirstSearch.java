@@ -1,8 +1,9 @@
-
+// depth first search is ITERATIVE 
+// must check to see if a node has been visited;
 public class DepthFirstSearch
 {
 
-	private static class Node<Integer>
+	private class Node<Integer>
 	{
 		private int data;
 		private Node[] adjacent;
@@ -11,9 +12,10 @@ public class DepthFirstSearch
 		public Node(int data)
 		{
 			this.data = data;
+			this.visited = false;
 		}
 	}
-
+	// root of search
 	private Node root;
 
 	public void search(Node root)

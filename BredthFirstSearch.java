@@ -1,4 +1,5 @@
 import java.util.*;
+// Use a QUEUE!
 
 public class BredthFirstSearch
 {
@@ -15,10 +16,12 @@ public class BredthFirstSearch
 		}
 	}
 
+	// root of the search
 	private Node root;
 
 	public void search(Node root)
 	{
+		// Linked List implements queue 
 		LinkedList<Node> queue = new LinkedList<Node>();
 		root.visited = true;
 		// add root to the end of the queue 
@@ -26,7 +29,7 @@ public class BredthFirstSearch
 
 		while(!queue.isEmpty())
 		{
-			Node r = queue.poll();
+			Node r = queue.remove();
 			System.out.println(r.data);
 			for(Node n : r.adjacent)
 			{

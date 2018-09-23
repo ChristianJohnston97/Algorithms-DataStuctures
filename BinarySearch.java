@@ -36,4 +36,34 @@ public class BinarySearch
 
     return 0;
   }
+
+  public int binarySearchNonRecursive(int[] array, int key)
+  {
+    int arrayLength = array.length;
+    int start = 0;
+    int end = arrayLength - 1;
+
+
+    while(start <= end)
+    {
+      int middle = (start + end)/2;
+
+      if(array[middle] == key)
+      {
+        return middle;
+      }
+      if(key >= array[middle])
+      {
+        start = middle+1;
+      }
+      else
+      {
+        end = middle -1;
+      }
+    }
+    return -1;
+  }
+
+
+
 }

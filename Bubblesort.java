@@ -5,18 +5,20 @@ public class Bubblesort
 
   public static void main(String[] args)
   {
-    int[] testArray = {7, 11, 36, 2, 15, 52, 48, 2};
+    int[] testArray = {13, 11, 36, 2, 15, 52, 48, 2};
     Bubblesort bs = new Bubblesort();
     bs.sort(testArray);
     printArray(testArray);
   }
+
 
   public void sort(int[] array)
   {
     int arrayLength = array.length;
     for(int i=0; i < arrayLength-1; i++)
     {
-      for(int j=0; j<arrayLength-i-1; j++)
+      // array length - i -1 as each pass you can ignore the final i elements as they are already in place
+      for(int j=0; j < arrayLength-i-1; j++)
       {
         if(array[j] > array[j+1])
         {

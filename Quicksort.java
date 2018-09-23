@@ -1,5 +1,10 @@
 import java.lang.*;
 
+// Recursive algorithm
+// Pick a pivot element - choose the end element 
+// Get all elements less than pivot and swap them with the left elements
+// Finally, swap pivot element with the next element in the list
+
 public class Quicksort
 {
 
@@ -17,11 +22,10 @@ public class Quicksort
     // Choose the pivot as the last element
     int pivot = array[r];
 
-    // i is the index of a smaller elements
     int i = l-1;
     // we start from the leftmost element and keep track of index of smaller elements as i.
     // If we find a smaller element, we swap current element with arr[i].
-    // Otherwise we ignore current element.
+
     for (int j=l; j<r; j++)
     {
       if(array[j] <= pivot)
@@ -32,6 +36,8 @@ public class Quicksort
         array[j] = temp;
       }
     }
+    // swap pivot element with element in its 'place' at position i+1 
+    // i.e. put the pivot back in place
     int temp = array[i+1];
     array[i+1] = array[r];
     array[r] = temp;
@@ -46,8 +52,6 @@ public class Quicksort
            System.out.print(array[i]+" ");
        System.out.println();
    }
-
-
 
 
   public void sort(int[] array, int l, int r)
