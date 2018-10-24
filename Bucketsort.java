@@ -1,5 +1,8 @@
 import java.util.*;
 
+// used when just integers uniformly distributed over a range 
+// for example birthdays 
+
 public class Bucketsort
 {
 
@@ -22,8 +25,11 @@ public class Bucketsort
   public ArrayList<Integer> sort(int[] array)
   {
     int maxElement = getMaxElement(array);
-    int[] buckets = new int[maxElement];
+    // create an array of buckets of length (max element ) in this example it is 52.
+    // need one more as array starts from 0 so need 49 buckets
+    int[] buckets = new int[maxElement+1];
 
+    // initialise all entries to 0 
     for (int i=0; i<buckets.length; i++)
     {
       buckets[i]=0;
@@ -31,7 +37,7 @@ public class Bucketsort
 
     for(int value : array)
     {
-      buckets[value-1]++;
+      buckets[value]++;
     }
 
     ArrayList<Integer> sorted = new ArrayList<Integer>();

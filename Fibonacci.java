@@ -9,9 +9,27 @@ public class Fibonacci
 		System.out.println(result);
 	}
 
-// Recursive fibonacci with memoisation
+	// naive (2^n)
+	public static int fibN(int n)
+	{ 
+		if (n < 0) 
+		{
+			throw new IllegalArgumentException("n must not be less than zero");
+	}
+	if (n == 1) return 1;
+	if (n == 0) return 0;
+
+	return (fibN(n - 1) + fibN(n - 2));
+	}
+
+	// Recursive fibonacci with memoisation
+	// O(n)
 	public static int fibonacci(int n, int[] memoisation)
 	{
+		if (n < 0) 
+		{
+			throw new IllegalArgumentException("n must not be less than zero");
+		}
 		if(n == 0) return 0;
 		if(n == 1) return 1;
 
@@ -22,7 +40,7 @@ public class Fibonacci
 		return memoisation[n];
 	}
 
-// Iterative fibonacci 
+	// Iterative fibonacci 
 	public static int fibonacci2(int n)
 	{
 		if(n == 0) return 0;

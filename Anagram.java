@@ -16,17 +16,17 @@ public class Anagram
 
 	public static List<String> anagram(String string, String[] list)
 	{
-		Map<String, String> map = new HashMap<String, String>();
+		Set<String> set = new HashSet<String>();
 		List<String> output = new ArrayList<String>();
 
 		String signature = order(string);
-		map.put(signature, signature);
+		set.add(signature);
 
 
 		for(String st: list)
 		{
 			String ordered = order(st);
-			if(map.containsKey(ordered))
+			if(set.contains(ordered))
 			{
 				output.add(st);
 			}

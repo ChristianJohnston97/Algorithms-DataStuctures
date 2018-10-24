@@ -17,8 +17,45 @@ public class BinarySearchTree
 		}
 	}
 
+	public static void main(String[] args)
+	{
+		BinarySearchTree tree = new BinarySearchTree();
+		tree.insert(50); 
+        tree.insert(30); 
+        tree.insert(20); 
+        tree.insert(40); 
+        tree.insert(70); 
+        tree.insert(60); 
+        tree.insert(80); 
+        tree.secondLargestNode(50);
+	}
+
 
 	private Node root;
+	private int counter;
+
+
+	public void secondLargestNode(Node node)
+	{
+		if(root != null)
+		{
+			if(root.right != null)
+			{
+				secondLargestNode(root.right);
+			}
+			
+			counter++;
+			if(counter == 2)
+			{
+				System.out.println(root.data);
+			}
+			
+			if(root.left != null)
+			{
+				secondLargestNode(root.left);
+			}
+		}
+	}
 
 	// function to find lowest common ancestor between nodes n1 and n2
 	public Node lowestCommonAncestor(Node node, int n1, int n2)
@@ -37,21 +74,32 @@ public class BinarySearchTree
 		{
 			return lowestCommonAncestor(node.right, n1, n2);
 		}
-		return Node;
-	}		
-
-	public void insertNode(Node node, int value)
-	{
-		if(value <= node.data)
-		{
-			insertNode(node.left, value);
-		}
-		else
-		{
-			insertNode(node.right, value);
-		}
-
+		return node;
 	}
+
+
+
+	public Node inesert(Node root, int key) { 
+  
+        /* If the tree is empty, return a new node */
+        if (root == null) 
+        { 
+            root = new Node(key); 
+            return root; 
+        } 
+  
+        /* Otherwise, recur down the tree */
+        if (key < root.key)
+        {
+            root.left = insertRec(root.left, key); 
+        }
+        else if (key > root.key)
+        {
+            root.right = insertRec(root.right, key); 
+        }
+  
+        return root; 
+    } 
 
 	public int findMinimumValue(Node node)
 	{
@@ -72,7 +120,7 @@ public class BinarySearchTree
 			return true;
 		}
 
-		if(value >= node.data)
+		else if(value > node.data)
 		{
 			search(node.right, value);
 		}
@@ -92,15 +140,19 @@ public class BinarySearchTree
             root.right = delete(root.right, value);
 		else
 		{
+			// node with only one child or no child 
 			if(root.left == null)
 			{
 				return root.right;
 			}
 			else if(root.right == null)
 			{
-				return root.right;
+				return root.left;
 			}
+			// node with two children, get the smallest in the right subtree
 			root.data = minValue(root.right);
+
+			//delete the smallest node in the right subtree
 			root.right = delete(root.right, root.data);
 
 		}
@@ -125,15 +177,22 @@ public class BinarySearchTree
 	{
 		if(root != null)
 		{
-			inOrderTreversal(root.left);
+			if(root.left != null)
+			{
+				inOrderTreversal(root.left);
+			}
+
 			System.out.println(root.data);
-			inOrderTreversal(root.right);
+			
+			if(root.right != null)
+			{
+				inOrderTreversal(root.right);
+			}
 		}
 	}
 
 
 	// level order = breadth first search (use a queue)
-	// LinkedList is best implementation of queue interface
 	// BFS is NOT iterative!
 
 	public void levelOrderTreversal(Node root)

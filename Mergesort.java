@@ -5,7 +5,7 @@ public class Mergesort
 
   public static void main(String[] args)
   {
-    int[] testArray = {7, 11, 36, 2, 15, 52, 48, 2};
+    int[] testArray = {7, 11, 36, 6, 15, 52, 48, 2};
     Mergesort ms = new Mergesort();
     ms.sort(testArray, 0, testArray.length-1);
     printArray(testArray);
@@ -17,9 +17,11 @@ public class Mergesort
 
   public void merge(int[] array, int l, int m, int r)
   {
+    // the left side includes the middle 
     int leftLength = m-l+1;
     int rightLength = r-m;
 
+    // helper arrays
     int[] tempLeft = new int[leftLength];
     int[] tempRight = new int[rightLength];
 
@@ -35,8 +37,11 @@ public class Mergesort
 
     int i = 0;
     int j = 0;
+
+    // IMPORTANT
     int k = l;
 
+    // comparing elements in the two helper arrays
     while (i < leftLength && j < rightLength)
     {
       if (tempLeft[i] <= tempRight[j])
@@ -53,7 +58,7 @@ public class Mergesort
       k++;
     }
 
-    /* Copy remaining elements of L[] if any */
+    // Copy remaining elements of left helper (if any)
     while (i < leftLength)
       {
         array[k] = tempLeft[i];
@@ -61,7 +66,7 @@ public class Mergesort
         k++;
       }
 
-    /* Copy remaining elements of R[] if any */
+    // Copy remaining elements of right helper (if any)
     while (j < rightLength)
       {
         array[k] = tempRight[j];
@@ -83,11 +88,9 @@ public class Mergesort
     }
   }
 
-    static void printArray(int arr[]) 
-    { 
+    static void printArray(int arr[]) { 
         int n = arr.length; 
         for (int i=0; i<n; ++i) 
             System.out.print(arr[i] + " "); 
-        System.out.println(); 
     } 
 }

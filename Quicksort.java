@@ -1,6 +1,6 @@
 import java.lang.*;
-
-// Recursive algorithm
+import java.util.*;
+// Recursive algorithm - divide and conquer 
 // Pick a pivot element - choose the end element 
 // Get all elements less than pivot and swap them with the left elements
 // Finally, swap pivot element with the next element in the list
@@ -13,7 +13,7 @@ public class Quicksort
     int[] testArray = {7, 11, 36, 2, 15, 52, 48, 43};
     Quicksort qs = new Quicksort();
     qs.sort(testArray, 0, testArray.length -1);
-    printArray(testArray);
+    System.out.println(Arrays.toString(testArray));
   }
 
 
@@ -30,6 +30,7 @@ public class Quicksort
     {
       if(array[j] <= pivot)
       {
+        // swap array[i] and array[j]
         i++;
         int temp = array[i];
         array[i] = array[j];
@@ -45,19 +46,12 @@ public class Quicksort
     return i+1;
   }
 
-  static void printArray(int array[])
-   {
-       int n = array.length;
-       for (int i=0; i<n; ++i)
-           System.out.print(array[i]+" ");
-       System.out.println();
-   }
-
 
   public void sort(int[] array, int l, int r)
   {
     if (l < r)
     {
+      // don't include the pivot element
       int partitionIndex = partition(array, l, r);
       sort(array, l, partitionIndex-1);
       sort(array, partitionIndex+1, r);

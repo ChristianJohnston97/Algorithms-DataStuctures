@@ -23,8 +23,12 @@ public class Queue
 	private Node front;
 	private Node back;
 
-	public int dequeue()
+	public int remove()
 	{
+		if(front == null)
+		{
+			throw new NoSuchElementException();
+		}
 		int item = front.data;
 		front = front.next;
 		if(front == null)
@@ -36,8 +40,7 @@ public class Queue
 
 	public int peek()
 	{
-		int item = front.data;
-		return item;
+		return front.data;
 	}
 
 	public void add(int item)

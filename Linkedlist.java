@@ -9,13 +9,15 @@ public class Linkedlist<Integer>
 	{
 		private int data;
 		private Node next;
+		private boolean visited;
 
 		private Node head;
 
 		public Node(int data)
 		{
 			this.data = data;
-			next = null;
+			this.next = null;
+			this.visited = false;
 		}
 
 		public void appendToHead(int data)
@@ -65,7 +67,26 @@ public class Linkedlist<Integer>
 				n = n.next;
 			}
 			return head;
-		}	
+		}
+
+		public Node findKthToLastElement(Node node, int k)
+		{
+			Node reference = head;
+			Node main = head;
+
+			for(int i=0; i<k; i++)
+			{
+				reference = reference.next;
+			}
+
+			while(reference != null)
+			{
+				reference = reference.next;
+				main = main.next;
+			}
+
+			return main;
+		}
 
 
 		//finding middle element of LinkedList in single pass
@@ -93,6 +114,7 @@ public class Linkedlist<Integer>
 			return middle.data;
 		}
 
+		// O(n)
 		public Node reverse(Node node)
 		{
 			Node current = head;
@@ -101,9 +123,14 @@ public class Linkedlist<Integer>
 
 			while(current != null)
 			{
+				// need to store next node for looping purposes
 	            next = current.next;
+
+	            // change next of current to previous
 	            current.next = previous;
 	            previous = current;
+
+	            // move on one
 	            current = next;
         	}
         	node = previous;
@@ -129,6 +156,32 @@ public class Linkedlist<Integer>
 
 				node = node.next;
 			}
+		}
+
+		// intersection of two linked lists
+		// O(m+n) but requires additional information with each node (visited)
+
+		// could also hash set
+		public int interesection(Node node1, Node node2)
+		{
+			while(node1 != null)
+			{
+				node1.visited = true;
+				node1 = node1.next;
+			}
+
+			while(node2 != null)
+			{
+				if(node2.visited == true)
+				{
+					return node2.data;
+				}
+				else
+				{
+					node2 = node2.next;
+				}
+			}
+			return -1;
 		}
 	}
 }

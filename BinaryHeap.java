@@ -1,91 +1,165 @@
-//min binary heap
+//MIN binary heap
+import java.util.*;
 public class BinaryHeap
 {
+	private int capacity = 16;
+	private int size = 0;
 
-	private static class Node
+
+	int[] items = new int[capacity];
+
+
+	private int getLeftChildIndex(int parentIndex)
 	{
-		private int data;
-		private Node left;
-		private Node right;
-		private Node parent;
+		int index = (2 * parentIndex) + 1;
+		return index;
+	}
 
+	private int getRightChildIndex(int parentIndex)
+	{
+		int index = (2 * parentIndex) + 2;
+		return index;
+	}
+	
+	private int getParentIndex(int childIndex)
+	{
+		int index = (childIndex -1)/2;
+		return index;
+	}
 
-		public Node(int data)
+	private boolean hasLeftChild(int index)
+	{
+		int indx = getLeftChildIndex(index);
+		if(indx < size)
 		{
-			this.data = data;
-			left = null;
-			right = null;
-			parent = null;
+			return true;
+		}
+		return false;
+	}
+
+	private boolean hasRightChild(int index)
+	{
+		int indx = getRightChildIndex(index);
+		if(indx < size)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private boolean hasParent(int index)
+	{
+		int indx = getRightChildIndex(index);
+		if(indx >= 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private int leftChildValue(int index)
+	{
+		return items[getLeftChildIndex(index)];
+	}
+
+	private int rightChildValue(int index)
+	{
+		return items[getRightChildIndex(index)];
+	}
+
+	private int parentValue(int index)
+	{
+		return items[getParentIndex(index)];
+	}
+
+	private void swap(int index1, int index2)
+	{
+		int temp = items[index1];
+		items[index1] = items[index2];
+		items[index2] = temp;
+	}
+
+	public void ensureExtraCapacity()
+	{
+		if(size == capacity)
+		{
+			items = Arrays.copyOf(items, capacity*2);
+			capacity *= 2;
 		}
 	}
 
-	private Node root;
-	private Node endNode;
-
-	public int getMinimumValue()
+	public int peek()
 	{
-		return root.data;
-	}
-
-	public int deleteMin()
-	{
-		Node endNode = getEndOfHeap(root);
-		endNode.left = root.left;
-		endNode.right = root.right;
-		root = endNode;
-		percolateDown(root)
-
-	}
-
-	public int percolateDown(Node node)
-	{
-		if(node.data < node.left.data)
+		if(size == 0)
 		{
-			percolateDown(node.left)
+			throw new IllegalStateException();
 		}
-		if(node.data > node.right.data)
+		else
 		{
-			percolateDown(node.right)
+			return items[0];
 		}
-
-
 	}
 
-	public void insertNode(int value)
+	// returns and removes minimum element 
+	public int removeMin()
 	{
-		Node newNode = new Node(value);
-		endNode.right = newNode;
-		endNode = newNode;
-		percolateUp(endNode);
-	}
-
-
-	public int percolateUp(Node node)
-	{
-		// not sure how to do this.
-
-	}
-
-
-	public Node getEndOfHeap(Node node)
-	{
-		if(node.left == null)
+		if(size == 0)
 		{
-			return node.left;
+			throw new IllegalStateException();
 		}
+		else
+		{
+			int item = items[0];
+			// move element at end to beginning
+			items[0] = items[size-1];
+			size--;
+			heapifyDown();
+			return item;
+		}
+	}
+
+
+	public void addElement(int value)
+	{
+		ensureExtraCapacity();
+		items[size] = value;
+		size++;
+		heapifyUp();
+	}
+
+	public void heapifyUp()
+	{
+		int index = size-1;
+		while(hasParent(index) && getParentIndex(index) > items[index])
+		{
+			swap(getParentIndex(index), index);
+			index = getParentIndex(index);
+		}
+	}
+
+
+	public void heapifyDown()
+	{
+		int index = 0;
+		//only need to check it has a right child 
+		while(hasLeftChild(index))
+		{
+			int smallerChildIndex = getLeftChildIndex(index);
+			if(hasRightChild(index) && rightChildValue(index) < smallerChildIndex)
+			{
+				smallerChildIndex = getRightChildIndex(index);
+			}
 		
-		{
-			getEndOfHeap(node.right)
+			if(items[index] < items[smallerChildIndex])
+			{
+				break;
+			}
+			else
+			{
+				swap(index, smallerChildIndex);
+			}
+			index = smallerChildIndex;
 		}
-		return node
-	}
-
-	public void insert(Node node, int value)
-	{
-		Node finalNode = getEndOfHeap;
-		finalNode.left = node;
-		node.data = value;
-
 	}
 
 
